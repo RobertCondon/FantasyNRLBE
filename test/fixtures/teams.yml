@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id              :bigint           not null, primary key
+#  ladder_position :integer
+#  name            :string
+#  short_name      :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+one:
+  name: MyString
+  ladder_position: 1
+
+two:
+  name: MyString
+  ladder_position: 1

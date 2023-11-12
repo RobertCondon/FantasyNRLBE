@@ -1,0 +1,28 @@
+# == Schema Information
+#
+# Table name: matches
+#
+#  id             :bigint           not null, primary key
+#  date           :datetime
+#  round          :integer
+#  score          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  away_roster_id :integer
+#  home_roster_id :integer
+#  winner_id      :bigint
+#
+
+one:
+  away_team: 1
+  home_team: 1
+  score: MyString
+  round: 1
+  date: 2023-07-15 15:30:31
+
+two:
+  away_team: 1
+  home_team: 1
+  score: MyString
+  round: 1
+  date: 2023-07-15 15:30:31
