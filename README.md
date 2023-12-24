@@ -23,6 +23,9 @@ Things you may want to cover:
 
 # Database DBML
 ``````
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
 Table players {
   id integer [primary key]
   current_team_id integer
@@ -39,7 +42,7 @@ Table player_rounds {
   id integer [primary key]
   player_id integer
   team_id integer
-  match_id integer
+  match_roster_id integer
   position string
   stats string
   created_at timestamp 
@@ -59,20 +62,29 @@ Table matches {
   round integer
   team_home_score integer
   team_away_score integer
-  team_home_id integer
-  team_away_id integer
+  roster_home_id integer
+  roster_away_id integer
   winner_id integer
   created_at timestamp
 }
 
+Table match_rosters {
+  id integer [primary key]
+  team_id integer
+  created_at timestamp
+}
+
+
 Ref: players.current_team_id > teams.id
 
-Ref: matches.team_home_id > teams.id
-Ref: matches.team_away_id > teams.id
-Ref: matches.winner_id > teams.id
+Ref: match_rosters.team_id > teams.id
+
+Ref: matches.roster_home_id > match_rosters.id
+Ref: matches.roster_away_id > match_rosters.id
+Ref: matches.winner_id > match_rosters.id
 
 Ref: player_rounds.team_id > teams.id
-Ref: player_rounds.match_id > matches.id
+Ref: player_rounds.match_roster_id > match_rosters.id
 Ref: player_rounds.player_id > players.id
 
 ``````
