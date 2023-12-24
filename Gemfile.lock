@@ -211,6 +211,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.1)
+    vcr (6.2.0)
     websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -235,6 +236,7 @@ DEPENDENCIES
   rspec-rails
   selenium-webdriver
   tzinfo-data
+  vcr
 
 RUBY VERSION
    ruby 3.2.2p53
