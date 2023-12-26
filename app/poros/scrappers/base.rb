@@ -19,11 +19,21 @@ module Scrappers
     end
 
     def create_driver
+      Selenium::WebDriver.for :chrome, options: options, http_client: client
+    end
+
+    def client
+      client = Selenium::WebDriver::Remote::Http::Default.new
+      client.read_timeout = 600
+      client
+    end
+
+    def options
       options = Selenium::WebDriver::Chrome::Options.new
-      # options.add_argument("--headless")
+      options.add_argument("--headless")
       options.add_argument('--disable-blink-features=AutomationControlled')
       options.add_argument("--window-size=1920,1080")
-      Selenium::WebDriver.for :chrome, options: options
+      options
     end
   end
 end

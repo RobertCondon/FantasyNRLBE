@@ -22,6 +22,7 @@ module Parsers
       round_rows.each do |round_row|
         round_object = {}
         round_columns = round_row.find_elements(:css, "td")
+        next if does_column_have_player?(round_columns)
         round_object["year"] = round_columns[1].text.strip
         round_object["round"] = round_columns[2].text.strip
         round_object["position"] = round_columns[7].text.strip
@@ -55,6 +56,10 @@ module Parsers
         @rounds.push(round_object)
       end
       nil
+    end
+
+    def does_column_have_player?(round_columns)
+      round_columns[1].find_element(tag_name: 'span').text == ""
     end
   end
 end
