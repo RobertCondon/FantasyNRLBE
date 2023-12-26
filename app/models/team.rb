@@ -13,5 +13,9 @@ class Team < ApplicationRecord
   has_many :players
   has_many :rosters
   has_many :won_matches, class_name: 'Match', foreign_key: :winner_id
-  has_many :matches, through: :rosters
+
+  def matches
+    Match.where(home_roster_id: rosters.select(:id))
+         .or(Match.where(away_roster_id: rosters.select(:id)))
+  end
 end
