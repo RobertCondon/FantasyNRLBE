@@ -50,6 +50,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "vcr"
+  gem "shoulda-matchers"
 end
 
 group :development do
