@@ -12,6 +12,11 @@
 #  home_roster_id :integer
 #  winner_id      :bigint
 #
+# Indexes
+#
+#  index_matches_on_away_roster_id  (away_roster_id)
+#  index_matches_on_home_roster_id  (home_roster_id)
+#
 class Match < ApplicationRecord
   belongs_to :away_roster, class_name: 'Roster', foreign_key: :away_roster_id
   belongs_to :home_roster, class_name: 'Roster', foreign_key: :home_roster_id

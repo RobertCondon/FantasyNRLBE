@@ -12,6 +12,11 @@
 #  home_roster_id :integer
 #  winner_id      :bigint
 #
+# Indexes
+#
+#  index_matches_on_away_roster_id  (away_roster_id)
+#  index_matches_on_home_roster_id  (home_roster_id)
+#
 require 'rails_helper'
 
 RSpec.describe Match, type: :model do
