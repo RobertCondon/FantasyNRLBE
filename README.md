@@ -1,25 +1,77 @@
-# README
+```
+ _   _ ______ _      ______          _                     ___  ______ _____ 
+| \ | || ___ \ |     |  ___|        | |                   / _ \ | ___ \_   _|
+|  \| || |_/ / |     | |_ __ _ _ __ | |_ __ _ ___ _   _  / /_\ \| |_/ / | |  
+| . ` ||    /| |     |  _/ _` | '_ \| __/ _` / __| | | | |  _  ||  __/  | |  
+| |\  || |\ \| |____ | || (_| | | | | || (_| \__ \ |_| | | | | || |    _| |_
+\_| \_/\_| \_\_____/ \_| \__,_|_| |_|\__\__,_|___/\__, | \_| |_/\_|    \___/
+                                                   __/ |                     
+                                                   |___/
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 🏉 About The Project
 
-Things you may want to cover:
+**Fantasy NRL Rails API** is an innovative API 🚀 designed to make NRL fantasy stats easily accessible in a query-able format. Aimed at NRL enthusiasts and Rails API developers, this project offers a unique approach to accessing and analyzing NRL statistics.
 
-* Ruby version
+## 🚀 Getting Started
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+- Ruby 3.2.2 (Use `rbenv` or `rvm` for version management)
+- PostgreSQL (Ensure it's installed and running)
+- Bundler (Install via `gem install bundler`)
 
-* Database creation
+### 🛠 Installation
 
-* Database initialization
+1. **Clone the Repository**:
+   ```sh
+   git clone https://github.com/RobertCondon/FantasyNRLBE
+   cd FantasyNRLBE
+   ```
 
-* How to run the test suite
+2. **Install Dependencies**:
+   ```sh
+   bundle install
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+3. **Database Setup**:
+    - Start PostgreSQL service.
+    - Configure `database.yml`.
+    - Initialize the database:
+      ```sh
+      rails db:create
+      rails db:migrate
+      ```
 
-* Deployment instructions
+4. **Running the Application**:
+   ```sh
+   rails server
+   ```
+
+5. **Running Tests**:
+   ```sh
+   bundle exec rspec
+   ```
+
+## 👥 Contributing
+
+Feel free to make a pull request or open an issue. Our core team will promptly review contributions. Remember: Be kind, be helpful.
+
+## 🛠 Troubleshooting
+
+- **Bundle Install Fails**: Ensure you have the correct Ruby version set.
+- **Database Errors**: Verify PostgreSQL is running and `database.yml` is correctly set up.
+- **Server Won't Start**: Check for any port conflicts or environment-specific issues.
+
+## 🚧 Future Plans
+
+- API Endpoints Documentation
+- Example Usage and Tutorials
+
+## 🙏 Acknowledgments
+
+- Creator: Rob Condon
+- Data Source: NRL.com
 
 # Database DBML
 ``````
