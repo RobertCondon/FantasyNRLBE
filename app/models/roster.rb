@@ -9,4 +9,5 @@
 #
 class Roster < ApplicationRecord
   belongs_to :team
+  has_one :match
 end

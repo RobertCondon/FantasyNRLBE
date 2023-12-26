@@ -9,9 +9,10 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-class Team < ApplicationRecord
-  has_many :players
-  has_many :rosters
-  has_many :won_matches, class_name: 'Match', foreign_key: :winner_id
-  has_many :matches, through: :rosters
+FactoryBot.define do
+  factory :team do
+    ladder_position { 1 }
+    name { "Warriors" }
+    short_name { "WAR" }
+  end
 end
