@@ -90,7 +90,6 @@ RSpec.describe Processors::Json::PlayerRound do
     described_class.new(team: team, roster: roster).create_player_round(player: player, attrs: example_json_block)
     player_round = PlayerRound.find_by(player: player, team: team, roster: roster)
     expect(player_round).to be_a(::PlayerRound)
-    p player_round
     expect(player_round.tackles_made).to eq(7)
     expect(player_round.play_the_ball_average_speed).to eq(3.41)
   end

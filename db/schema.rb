@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_063416) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_072533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_063416) do
     t.integer "cost"
     t.decimal "owned_by"
     t.integer "nrl_id"
+    t.string "status"
   end
 
   create_table "rosters", force: :cascade do |t|
