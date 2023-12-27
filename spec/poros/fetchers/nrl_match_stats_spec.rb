@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe NrlMatchStats do
+RSpec.describe Fetchers::NrlMatchStats do
   let(:player_stat_keys) do
     %w[playerId allRunMetres allRuns bombKicks crossFieldKicks conversions conversionAttempts dummyHalfRuns dummyHalfRunMetres dummyPasses errors fantasyPointsTotal fieldGoals forcedDropOutKicks fortyTwentyKicks goals goalConversionRate grubberKicks handlingErrors hitUps hitUpRunMetres ineffectiveTackles intercepts kicks kicksDead kicksDefused kickMetres kickReturnMetres lineBreakAssists lineBreaks lineEngagedRuns minutesPlayed missedTackles offloads offsideWithinTenMetres oneOnOneLost oneOnOneSteal onePointFieldGoals onReport passesToRunRatio passes playTheBallTotal playTheBallAverageSpeed penalties points penaltyGoals postContactMetres receipts ruckInfringements sendOffs sinBins stintOne tackleBreaks tackleEfficiency tacklesMade tries tryAssists twentyFortyKicks twoPointFieldGoals]
   end
 
   let(:subject) do
     VCR.use_cassette("nrl_match_stats") do
-      NrlMatchStats.new(year: 2022, round: 1, home_team: "wests-tigers", away_team: "storm")
+      Fetchers::NrlMatchStats.new(year: 2022, round: 1, home_team: "wests-tigers", away_team: "storm")
     end
   end
 
