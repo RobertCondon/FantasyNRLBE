@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_021142) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_044823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_021142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "team_id"
+    t.integer "fantasy_points_total"
+    t.decimal "fantasy_points_average"
+    t.integer "cost"
+    t.decimal "owned_by"
+    t.integer "nrl_id"
   end
 
   create_table "rosters", force: :cascade do |t|
