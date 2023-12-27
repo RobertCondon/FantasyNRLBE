@@ -13,36 +13,42 @@
 #  dummy_half_run_meters       :integer
 #  dummy_half_runs             :integer
 #  dummy_passes                :integer
-#  forced_drop_outs            :integer
+#  fantasy_points_total        :integer
+#  field_goals                 :integer
+#  forced_drop_out_kicks       :integer
 #  forty_twenties              :integer
 #  goal_conversion_rate        :string
-#  grubbers                    :integer
+#  goals                       :integer
+#  grubber_kicks               :integer
 #  handling_errors             :integer
+#  hit_up_run_meters           :integer
 #  hit_ups                     :integer
 #  ineffective_tackles         :integer
 #  inside_10_meters            :integer
 #  intercepts                  :integer
+#  kick_meters                 :integer
 #  kick_return_meters          :integer
-#  kicked_deads                :integer
-#  kicking_meters              :integer
 #  kicks                       :integer
+#  kicks_dead                  :integer
 #  kicks_defused               :integer
 #  line_break_assists          :integer
 #  line_breaks                 :integer
 #  line_engaged_runs           :integer
-#  mins_played                 :string
+#  minutes_played              :string
 #  missed_tackles              :integer
 #  number                      :integer
 #  offloads                    :integer
+#  offside_within_ten_meters   :integer
 #  on_report                   :integer
 #  one_on_one_lost             :integer
-#  one_one_one_steals          :integer
+#  one_on_one_steal            :integer
 #  one_point_field_goals       :integer
 #  passes                      :integer
 #  passes_to_run_ratio         :string
 #  penalties                   :integer
 #  penalty_goals               :integer
 #  play_the_ball               :integer
+#  play_the_ball_average_speed :decimal(, )
 #  player_errors               :integer
 #  points                      :integer
 #  position                    :string
@@ -79,7 +85,7 @@ FactoryBot.define do
     dummy_half_run_meters { 1 }
     dummy_half_runs { 1 }
     dummy_passes { 1 }
-    forced_drop_outs { 1 }
+    forced_drop_out_kicks { 1 }
     forty_twenties { 1 }
     goal_conversion_rate { 1 }
     grubbers { 1 }

@@ -8,6 +8,18 @@ module Processors
         @attrs_block = {}
       end
 
+      def create_player_round(player:, attrs:)
+        process_attrs(attrs)
+
+        ::PlayerRound.create!({
+          player: player,
+          team: team,
+          roster: roster,
+        }.merge(attrs_block))
+      end
+
+      private
+
       def process_attrs(attrs)
         attrs_block["all_run_meters"] = attrs["allRunMetres"]
         attrs_block["all_runs"] = attrs["allRuns"]
@@ -22,7 +34,7 @@ module Processors
         attrs_block["fantasy_points_total"] = attrs["fantasyPointsTotal"]
         attrs_block["field_goals"] = attrs["fieldGoals"]
         attrs_block["forced_drop_out_kicks"] = attrs["forcedDropOutKicks"]
-        attrs_block["forty_twenty_kicks"] = attrs["fortyTwentyKicks"]
+        attrs_block["forty_twenties"] = attrs["fortyTwentyKicks"]
         attrs_block["goals"] = attrs["goals"]
         attrs_block["goal_conversion_rate"] = attrs["goalConversionRate"]
         attrs_block["grubber_kicks"] = attrs["grubberKicks"]
@@ -48,7 +60,7 @@ module Processors
         attrs_block["on_report"] = attrs["onReport"]
         attrs_block["passes_to_run_ratio"] = attrs["passesToRunRatio"]
         attrs_block["passes"] = attrs["passes"]
-        attrs_block["play_the_ball_total"] = attrs["playTheBallTotal"]
+        attrs_block["play_the_ball"] = attrs["playTheBallTotal"]
         attrs_block["play_the_ball_average_speed"] = attrs["playTheBallAverageSpeed"]
         attrs_block["penalties"] = attrs["penalties"]
         attrs_block["points"] = attrs["points"]
@@ -64,16 +76,8 @@ module Processors
         attrs_block["tackles_made"] = attrs["tacklesMade"]
         attrs_block["tries"] = attrs["tries"]
         attrs_block["try_assists"] = attrs["tryAssists"]
-        attrs_block["twenty_forty_kicks"] = attrs["twentyFortyKicks"]
+        attrs_block["twenty_forties"] = attrs["twentyFortyKicks"]
         attrs_block["two_point_field_goals"] = attrs["twoPointFieldGoals"]
-      end
-
-      def create_player_round(player:)
-        ::PlayerRound.create!({
-          player: player,
-          team: team,
-          roster: roster,
-        }.merge(attrs_block))
       end
     end
   end

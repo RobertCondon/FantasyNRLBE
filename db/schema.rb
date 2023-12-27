@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_125822) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_021142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_125822) do
     t.bigint "roster_id"
     t.integer "number"
     t.string "position"
-    t.string "mins_played"
+    t.string "minutes_played"
     t.integer "points"
     t.integer "tries"
     t.integer "conversions"
@@ -52,12 +52,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_125822) do
     t.integer "try_assists"
     t.integer "line_engaged_runs"
     t.integer "tackle_breaks"
-    t.integer "hit_ups"
     t.integer "play_the_ball"
     t.string "average_play_the_ball_speed"
     t.integer "dummy_half_runs"
     t.integer "dummy_half_run_meters"
-    t.integer "one_one_one_steals"
+    t.integer "one_on_one_steal"
     t.integer "offloads"
     t.integer "dummy_passes"
     t.integer "passes"
@@ -70,14 +69,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_125822) do
     t.integer "intercepts"
     t.integer "kicks_defused"
     t.integer "kicks"
-    t.integer "kicking_meters"
-    t.integer "forced_drop_outs"
+    t.integer "kick_meters"
     t.integer "bomb_kicks"
-    t.integer "grubbers"
+    t.integer "grubber_kicks"
     t.integer "forty_twenties"
     t.integer "twenty_forties"
     t.integer "cross_field_kicks"
-    t.integer "kicked_deads"
+    t.integer "kicks_dead"
     t.integer "player_errors"
     t.integer "handling_errors"
     t.integer "one_on_one_lost"
@@ -91,6 +89,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_125822) do
     t.string "stint_two"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hit_ups"
+    t.integer "fantasy_points_total"
+    t.integer "field_goals"
+    t.integer "forced_drop_out_kicks"
+    t.integer "goals"
+    t.integer "hit_up_run_meters"
+    t.integer "offside_within_ten_meters"
+    t.decimal "play_the_ball_average_speed"
   end
 
   create_table "players", force: :cascade do |t|
