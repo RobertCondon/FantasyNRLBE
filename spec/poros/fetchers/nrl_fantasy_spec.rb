@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Fetchers::NrlFantasyPlayers do
+RSpec.describe Fetchers::NrlFantasy do
 
   let(:player_keys) do
     %w[id first_name last_name cost status]
@@ -12,7 +12,7 @@ RSpec.describe Fetchers::NrlFantasyPlayers do
 
   let(:subject) do
     VCR.use_cassette("nrl_fantasy_players") do
-      described_class.json
+      described_class.json("player")
     end
   end
 

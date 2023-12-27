@@ -1,12 +1,12 @@
 module Fetchers
-  class NrlFantasyPlayers
+  class NrlFantasy
 
-    def initialize
-      @url = "https://fantasy.nrl.com/data/nrl/players.json"
+    def initialize(type)
+      @url = "https://fantasy.nrl.com/data/nrl/#{type}.json"
     end
 
-    def self.json
-      new.json
+    def self.json(type)
+      new(type).json
     end
 
     def json
