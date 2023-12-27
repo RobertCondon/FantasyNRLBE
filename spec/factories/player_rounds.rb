@@ -88,27 +88,27 @@ FactoryBot.define do
     forced_drop_out_kicks { 1 }
     forty_twenties { 1 }
     goal_conversion_rate { 1 }
-    grubbers { 1 }
+    grubber_kicks { 1 }
     handling_errors { 1 }
     hit_ups { 1 }
     ineffective_tackles { 1 }
     inside_10_meters { 1 }
     intercepts { 1 }
     kick_return_meters { 1 }
-    kicked_deads { 1 }
-    kicking_meters { 1 }
+    kicks_dead { 1 }
+    kick_meters { 1 }
     kicks { 1 }
     kicks_defused { 1 }
     line_break_assists { 1 }
     line_breaks { 1 }
     line_engaged_runs { 1 }
-    mins_played { 1 }
+    minutes_played { 1 }
     missed_tackles { 1 }
     number { 1 }
     offloads { 1 }
     on_report { 1 }
     one_on_one_lost { 1 }
-    one_one_one_steals { 1 }
+    one_on_one_steal { 1 }
     one_point_field_goals { 1 }
     passes { 1 }
     passes_to_run_ratio { 1 }
