@@ -8,6 +8,7 @@
 #  short_name      :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  nrl_id          :integer
 #
 class Team < ApplicationRecord
   has_many :players
