@@ -24,10 +24,19 @@ RSpec.describe Processors::Json::FantasyTeam do
 
   it "creates a player_round with the correct attrs" do
     expect(Team.count).to eq(0)
-    described_class.create_team(attrs: example_json_block)
+    team_processor = described_class.new
+    team_processor.set_attrs(attrs: example_json_block)
+    team_processor.create
     expect(Team.count).to eq(1)
     team = Team.find_by(nrl_id: 500011)
     expect(team.name).to eq("Broncos")
     expect(team.short_name).to eq("BRI")
+  end
+
+  it "skip is true when the team already exists" do
+    create(:team, nrl_id: 500011)
+    team_processor = described_class.new
+    team_processor.set_attrs(attrs: example_json_block)
+    expect(team_processor.skip?).to eq(true)
   end
 end

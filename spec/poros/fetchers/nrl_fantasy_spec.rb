@@ -26,7 +26,6 @@ RSpec.describe Fetchers::NrlFantasy do
 
   it "should contain hashes of players in the array with the correct keys" do
     expect(subject.first).to be_a(Hash)
-    p subject[0]
     subject.each do |player|
       expect(player.keys).to include(*player_keys)
       expect(player['stats'].keys).to include(*player_stat_keys)
