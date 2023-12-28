@@ -66,6 +66,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    addressable (2.8.5)
+      public_suffix (>= 2.0.2, < 6.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -74,6 +76,8 @@ GEM
     builder (3.2.4)
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     date (3.3.4)
     debug (1.9.0)
@@ -90,6 +94,7 @@ GEM
       railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashdiff (1.0.1)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
     httparty (0.21.0)
@@ -139,6 +144,7 @@ GEM
       method_source (~> 1.0)
     psych (5.1.1.1)
       stringio
+    public_suffix (5.0.3)
     puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.7.3)
@@ -216,6 +222,10 @@ GEM
       unf_ext
     unf_ext (0.0.8.1)
     vcr (6.2.0)
+    webmock (3.18.1)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -243,6 +253,7 @@ DEPENDENCIES
   shoulda-matchers
   tzinfo-data
   vcr
+  webmock
 
 RUBY VERSION
    ruby 3.2.2p53

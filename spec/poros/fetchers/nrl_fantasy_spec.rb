@@ -12,7 +12,7 @@ RSpec.describe Fetchers::NrlFantasy do
 
   let(:subject) do
     VCR.use_cassette("nrl_fantasy_players") do
-      described_class.json("player")
+      described_class.json("players")
     end
   end
 
