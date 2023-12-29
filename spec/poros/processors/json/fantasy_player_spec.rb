@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Processors::Json::FantasyPlayer do
-  let(:team) { create(:team) }
   let(:example_json_block) {
     JSON.parse({
       "id": 502490,
@@ -71,28 +70,42 @@ RSpec.describe Processors::Json::FantasyPlayer do
     }.to_json)
   }
 
+  let(:existing_team) { create(:team, nrl_id: 500028) }
+  let(:non_existing_team_nrl_id) { 999999 }
+  let(:player_processor) { described_class.new }
+
+  before do
+    existing_team
+  end
+
   it "initializes correctly" do
-    player_round_processor = described_class.new(team: team)
-    expect(player_round_processor.team).to eq(team)
-    expect(player_round_processor.attrs_block).to eq({})
+    expect(player_processor.instance_variable_get(:@attrs_block)).to eq({})
   end
 
-  it "can create new player_rounds without any attrs" do
-    player_round_processor = described_class.new(team: team)
-    expect { player_round_processor.create_player(attrs: {}) }.to change { Player.count }.by(1)
+
+  it "skip is true if the player has been ingested already" do
+    player_processor.set_attrs(attrs: example_json_block)
+    player_processor.create
+    expect(player_processor.skip?).to be_truthy
   end
 
-  it "can create new player_rounds with the correct attrs" do
-    player_round_processor = described_class.new(team: team)
-    expect(Player).to receive(:create!).with(hash_including(team: team))
-    player_round_processor.create_player(attrs: example_json_block)
+  it "creates a player with the correct attributes if it does not exist" do
+    player_processor.set_attrs(attrs: example_json_block.merge('id' => non_existing_team_nrl_id))
+    expect { player_processor.create }.to change { Player.count }.by(1)
   end
 
-  it "creates a player_round with the correct attrs" do
-    described_class.new(team: team).create_player(attrs: example_json_block)
-    player = Player.find_by(nrl_id: 502490)
-    expect(player.name).to eq("Nicholas Hynes")
-    expect(player.cost).to eq(1000000)
-    expect(player.fantasy_points_average).to eq(73.9)
+  it "sets attributes correctly" do
+    player_processor.set_attrs(attrs: example_json_block)
+    expect(player_processor.instance_variable_get(:@attrs_block)[:name]).to eq("Nicholas Hynes")
+    expect(player_processor.instance_variable_get(:@attrs_block)[:cost]).to eq(1000000)
+    expect(player_processor.instance_variable_get(:@attrs_block)[:fantasy_points_average]).to eq(73.9)
+  end
+
+  it "correctly finds or initializes the team based on nrl_id" do
+    player_processor.set_attrs(attrs: example_json_block)
+    expect(player_processor.send(:team)).to eq(existing_team)
+
+    player_processor.set_attrs(attrs: example_json_block.merge('squad_id' => non_existing_team_nrl_id))
+    expect(player_processor.send(:team)).to be_nil
   end
 end

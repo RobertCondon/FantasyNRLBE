@@ -2,22 +2,21 @@ module Processors
   module Json
     class FantasyPlayer
       attr :team, :attrs_block
-      def initialize(team:)
-        @team = team
+      def initialize
         @attrs_block = {}
       end
 
-      def create_player( attrs:)
-        process_attrs(attrs) if attrs.present?
-
+      def create
         Player.create!({
           team: team,
         }.merge(attrs_block))
       end
 
-      private
+      def skip?
+        Player.find_by(nrl_id: attrs_block[:nrl_id]).present?
+      end
 
-      def process_attrs(attrs)
+      def set_attrs(attrs:)
         stats = attrs['stats']
         attrs_block[:name] = "#{attrs['first_name']} #{attrs['last_name']}"
         attrs_block[:position] = attrs['position']
@@ -27,6 +26,13 @@ module Processors
         attrs_block[:owned_by] = stats['owned_by']
         attrs_block[:fantasy_points_total] = stats['total_points']
         attrs_block[:fantasy_points_average] = stats['avg_points']
+        set_team(attrs['squad_id'])
+      end
+
+      private
+
+      def set_team(nrl_id)
+        @team = Team.find_by(nrl_id: nrl_id)
       end
     end
   end
