@@ -19,4 +19,10 @@ class Team < ApplicationRecord
     Match.where(home_roster_id: rosters.select(:id))
          .or(Match.where(away_roster_id: rosters.select(:id)))
   end
+
+  def populate_from_fantasy
+    teams_json = Fetchers::NrlFantasy.json("ladder")
+    team_processor = Processors::Json::FantasyTeam.new
+    Importers::Interface.import(data: teams_json, processor: team_processor)
+  end
 end

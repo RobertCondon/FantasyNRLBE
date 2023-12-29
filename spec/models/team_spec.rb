@@ -35,6 +35,14 @@ RSpec.describe Team, type: :model do
       unrelated_match = create(:match)
       expect(team.matches).not_to include(unrelated_match)
     end
-  end
 
+    it 'runs populate_from_fantasy correctly' do
+      teams_json = {}
+      team_processor = {}
+      expect(Fetchers::NrlFantasy).to receive(:json).with("ladder").and_return(teams_json)
+      expect(Processors::Json::FantasyTeam).to receive(:new).and_return(team_processor)
+      expect(Importers::Interface).to receive(:import).with(data: teams_json, processor: team_processor)
+      team.populate_from_fantasy
+    end
+  end
 end
