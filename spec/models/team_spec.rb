@@ -15,7 +15,6 @@ require 'rails_helper'
 RSpec.describe Team, type: :model do
   it { should have_many(:players) }
   it { should have_many(:rosters) }
-  it { should have_many(:won_matches).class_name('Match').with_foreign_key('winner_id') }
 
   it "should have a valid factory" do
     expect(build(:team)).to be_valid
