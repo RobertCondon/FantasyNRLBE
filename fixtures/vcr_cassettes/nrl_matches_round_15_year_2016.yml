@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.nrl.com/draw//data?competition=111&round=15&season=2016&showOdds=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.2 (darwin22 x86_64) ruby/3.2.2p53
+      Host:
+      - www.nrl.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3773'
+      Content-Type:
+      - application/json; charset=utf-8
+      Server:
+      - Microsoft-IIS/10.0
+      Content-Encoding:
+      - gzip
+      Expires:
+      - Sat, 30 Dec 2023 07:19:37 GMT
+      Last-Modified:
+      - Sat, 30 Dec 2023 07:19:32 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Content-Security-Policy:
+      - frame-ancestors 'self'
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Cache-Control:
+      - public, max-age=5
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 30 Dec 2023 07:19:32 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-akl10326-AKL
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1703920772.481719,VS0,VE181
+      Vary:
+      - Accept-Encoding
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        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
+  recorded_at: Sat, 30 Dec 2023 07:19:32 GMT
+recorded_with: VCR 6.2.0
