@@ -42,7 +42,7 @@ RSpec.describe Team, type: :model do
       expect(Fetchers::NrlFantasy).to receive(:json).with("ladder").and_return(teams_json)
       expect(Processors::Json::FantasyTeam).to receive(:new).and_return(team_processor)
       expect(Importers::Interface).to receive(:import).with(data: teams_json, processor: team_processor)
-      team.populate_from_fantasy
+      Team.populate_from_fantasy
     end
   end
 end

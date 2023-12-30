@@ -18,4 +18,10 @@
 #
 class Player < ApplicationRecord
   belongs_to :team
+
+  def self.populate_from_fantasy
+    players_blob = Fetchers::NrlFantasy.json("players")
+    player_processor = Processors::Json::FantasyPlayer.new
+    Importers::Interface.import(data: players_blob, processor: player_processor)
+  end
 end

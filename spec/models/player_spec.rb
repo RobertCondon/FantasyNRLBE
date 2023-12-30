@@ -24,4 +24,13 @@ RSpec.describe Player, type: :model do
   it "should have a valid factory" do
     expect(build(:player)).to be_valid
   end
+
+  it 'runs populate_from_fantasy correctly' do
+    players_json = {}
+    player_processor = {}
+    expect(Fetchers::NrlFantasy).to receive(:json).with("players").and_return(players_json)
+    expect(Processors::Json::FantasyPlayer).to receive(:new).and_return(player_processor)
+    expect(Importers::Interface).to receive(:import).with(data: players_json, processor: player_processor)
+    Player.populate_from_fantasy
+  end
 end
