@@ -12,6 +12,7 @@
 #  away_team_id   :integer
 #  home_roster_id :integer
 #  home_team_id   :integer
+#  winner_id      :bigint
 #
 # Indexes
 #
@@ -21,8 +22,9 @@
 #  index_matches_on_home_team_id    (home_team_id)
 #
 class Match < ApplicationRecord
-  belongs_to :away_roster, class_name: 'Roster', foreign_key: :away_roster_id, optional: true
-  belongs_to :home_roster, class_name: 'Roster', foreign_key: :home_roster_id, optional: true
+  belongs_to :away_roster, class_name: 'Roster', foreign_key: :away_roster_id
+  belongs_to :home_roster, class_name: 'Roster', foreign_key: :home_roster_id
+  belongs_to :winner, class_name: 'Team', foreign_key: :winner_id
 
   validate :home_and_away_rosters_must_be_different
 

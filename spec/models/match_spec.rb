@@ -12,6 +12,7 @@
 #  away_team_id   :integer
 #  home_roster_id :integer
 #  home_team_id   :integer
+#  winner_id      :bigint
 #
 # Indexes
 #
@@ -23,8 +24,9 @@
 require 'rails_helper'
 
 RSpec.describe Match, type: :model do
-  it { should belong_to(:away_roster).class_name('Roster').with_foreign_key('away_roster_id').optional }
-  it { should belong_to(:home_roster).class_name('Roster').with_foreign_key('home_roster_id').optional }
+  it { should belong_to(:away_roster).class_name('Roster').with_foreign_key('away_roster_id') }
+  it { should belong_to(:home_roster).class_name('Roster').with_foreign_key('home_roster_id') }
+  it { should belong_to(:winner).class_name('Team').with_foreign_key('winner_id') }
 
   it "should have a valid factory" do
     expect(build(:match)).to be_valid

@@ -12,6 +12,7 @@
 #  away_team_id   :integer
 #  home_roster_id :integer
 #  home_team_id   :integer
+#  winner_id      :bigint
 #
 # Indexes
 #
@@ -27,5 +28,6 @@ FactoryBot.define do
     score { "30-0" }
     away_roster { create(:roster) }
     home_roster { create(:roster) }
+    winner { build(:team) }
   end
 end

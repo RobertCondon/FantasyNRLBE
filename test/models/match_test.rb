@@ -12,6 +12,7 @@
 #  away_team_id   :integer
 #  home_roster_id :integer
 #  home_team_id   :integer
+#  winner_id      :bigint
 #
 # Indexes
 #
