@@ -29,5 +29,7 @@ FactoryBot.define do
     away_roster { create(:roster) }
     home_roster { create(:roster) }
     winner { build(:team) }
+    home_team { build(:team) }
+    away_team { build(:team) }
   end
 end

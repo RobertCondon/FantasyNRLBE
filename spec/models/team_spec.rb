@@ -22,9 +22,8 @@ RSpec.describe Team, type: :model do
 
   describe '#matches' do
     let(:team) { create(:team) }
-    let(:roster) { create(:roster, team: team) }
-    let(:home_match) { create(:match, home_roster: roster) }
-    let(:away_match) { create(:match, away_roster: roster) }
+    let(:home_match) { create(:match, home_team: team) }
+    let(:away_match) { create(:match, away_team: team) }
 
     it 'returns matches where the team is either home or away' do
       expect(team.matches).to include(home_match, away_match)
