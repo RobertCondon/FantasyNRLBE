@@ -12,7 +12,7 @@
 #
 class Team < ApplicationRecord
   has_many :players
-  has_many :rosters
+  has_many :player_rounds
   # has_many :won_matches, class_name: 'Match', foreign_key: :winner_id
 
   def matches

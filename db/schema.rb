@@ -10,13 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_21_035724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "matches", force: :cascade do |t|
-    t.integer "away_roster_id"
-    t.integer "home_roster_id"
     t.string "score"
     t.integer "round"
     t.datetime "date"
@@ -26,9 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
     t.integer "away_team_id"
     t.integer "winner_id"
     t.integer "year"
-    t.index ["away_roster_id"], name: "index_matches_on_away_roster_id"
     t.index ["away_team_id"], name: "index_matches_on_away_team_id"
-    t.index ["home_roster_id"], name: "index_matches_on_home_roster_id"
     t.index ["home_team_id"], name: "index_matches_on_home_team_id"
     t.index ["year"], name: "index_matches_on_year"
   end
@@ -36,7 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
   create_table "player_rounds", force: :cascade do |t|
     t.bigint "player_id"
     t.bigint "team_id"
-    t.bigint "roster_id"
     t.integer "number"
     t.string "position"
     t.string "minutes_played"
@@ -103,6 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
     t.integer "hit_up_run_meters"
     t.integer "offside_within_ten_meters"
     t.decimal "play_the_ball_average_speed"
+    t.bigint "match_id"
+    t.index ["match_id"], name: "index_player_rounds_on_match_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -120,13 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
     t.string "status"
   end
 
-  create_table "rosters", force: :cascade do |t|
-    t.bigint "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "player_id"
-  end
-
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "short_name"
@@ -136,4 +126,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_02_094320) do
     t.integer "nrl_id"
   end
 
+  add_foreign_key "player_rounds", "matches"
 end

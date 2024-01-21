@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Processors::Json::PlayerRound do
   let(:team) { create(:team) }
   let(:player) { create(:player) }
-  let(:roster) { create(:roster, player: player, team: team) }
+  let(:match) { create(:match) }
   let(:example_json_block) {
     {
       "playerId"=>504098,
@@ -69,26 +69,26 @@ RSpec.describe Processors::Json::PlayerRound do
   }
 
   it "initializes correctly" do
-    player_round_processor = described_class.new(team: team, roster: roster)
+    player_round_processor = described_class.new(team: team, match: match)
     expect(player_round_processor.team).to eq(team)
-    expect(player_round_processor.roster).to eq(roster)
+    expect(player_round_processor.match).to eq(match)
     expect(player_round_processor.attrs_block).to eq({})
   end
 
   it "can create new player_rounds without any attrs" do
-    player_round_processor = described_class.new(team: team, roster: roster)
+    player_round_processor = described_class.new(team: team, match: match)
     expect { player_round_processor.create_player_round(player: player, attrs: {}) }.to change { PlayerRound.count }.by(1)
   end
 
   it "can create new player_rounds with the correct attrs" do
-    player_round_processor = described_class.new(team: team, roster: roster)
-    expect(::PlayerRound).to receive(:create!).with(hash_including(player: player, team: team, roster: roster))
+    player_round_processor = described_class.new(team: team, match: match)
+    expect(::PlayerRound).to receive(:create!).with(hash_including(player: player, team: team, match: match))
     player_round_processor.create_player_round(player: player, attrs: example_json_block)
   end
 
   it "creates a player_round with the correct attrs" do
-    described_class.new(team: team, roster: roster).create_player_round(player: player, attrs: example_json_block)
-    player_round = PlayerRound.find_by(player: player, team: team, roster: roster)
+    described_class.new(team: team, match: match).create_player_round(player: player, attrs: example_json_block)
+    player_round = PlayerRound.find_by(player: player, team: team, match: match)
     expect(player_round).to be_a(::PlayerRound)
     expect(player_round.tackles_made).to eq(7)
     expect(player_round.play_the_ball_average_speed).to eq(3.41)

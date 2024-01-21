@@ -69,13 +69,21 @@
 #  two_point_field_goals       :integer
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  match_id                    :bigint
 #  player_id                   :bigint
-#  roster_id                   :bigint
 #  team_id                     :bigint
+#
+# Indexes
+#
+#  index_player_rounds_on_match_id  (match_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (match_id => matches.id)
 #
 class PlayerRound < ApplicationRecord
   belongs_to :player
   belongs_to :team
-  belongs_to :roster
+  belongs_to :match
 
 end

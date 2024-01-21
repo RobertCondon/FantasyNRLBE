@@ -1,10 +1,10 @@
 module Processors
   module Json
     class PlayerRound
-      attr :team, :roster, :json_blob, :attrs_block
-      def initialize(team:, roster:)
+      attr :team, :match, :json_blob, :attrs_block
+      def initialize(team:, match:)
         @team = team
-        @roster = roster
+        @match = match
         @attrs_block = {}
       end
 
@@ -14,7 +14,7 @@ module Processors
         ::PlayerRound.create!({
           player: player,
           team: team,
-          roster: roster,
+          match: match,
         }.merge(attrs_block))
       end
 

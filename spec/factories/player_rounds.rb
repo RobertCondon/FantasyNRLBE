@@ -69,9 +69,17 @@
 #  two_point_field_goals       :integer
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  match_id                    :bigint
 #  player_id                   :bigint
-#  roster_id                   :bigint
 #  team_id                     :bigint
+#
+# Indexes
+#
+#  index_player_rounds_on_match_id  (match_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (match_id => matches.id)
 #
 FactoryBot.define do
   factory :player_round do
@@ -134,7 +142,7 @@ FactoryBot.define do
     twenty_forties { 1 }
     two_point_field_goals { 1 }
     player { build(:player) }
-    roster { build(:roster) }
+    match { build(:match) }
     team { build(:team) }
   end
 end

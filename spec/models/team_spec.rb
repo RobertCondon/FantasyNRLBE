@@ -14,7 +14,7 @@ require 'rails_helper'
 
 RSpec.describe Team, type: :model do
   it { should have_many(:players) }
-  it { should have_many(:rosters) }
+  it { should have_many(:player_rounds) }
 
   it "should have a valid factory" do
     expect(build(:team)).to be_valid
