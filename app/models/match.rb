@@ -28,8 +28,15 @@ class Match < ApplicationRecord
   private
 
   def self.populate_from_fantasy(round:, year:)
-    players_blob = Fetchers::NrlMatches.json(round: round, year: year)
+    years = [year].flatten
+    rounds = [round].flatten
     player_processor = Processors::Json::NrlMatch.new
-    Importers::Interface.import(data: players_blob, processor: player_processor)
+
+    years.each do |year|
+      rounds.each do |round|
+        players_blob = Fetchers::NrlMatches.json(round: round, year: year)
+        Importers::Interface.import(data: players_blob, processor: player_processor)
+      end
+    end
   end
 end
