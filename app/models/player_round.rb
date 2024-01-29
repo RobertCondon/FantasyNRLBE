@@ -86,4 +86,19 @@ class PlayerRound < ApplicationRecord
   belongs_to :team
   belongs_to :match
 
+
+  def self.populate_from_fantasy(matches:)
+    matches = [matches].flatten
+
+    matches.each do |match|
+      next if PlayerRound.where(match: match).count > 0
+      players_blob = Fetchers::NrlMatchStats.new(match: match)
+      next if players_blob.nil?
+
+      home_player_processor = Processors::Json::PlayerRound.new(match: match, team: match.home_team)
+      away_player_processor = Processors::Json::PlayerRound.new(match: match, team: match.away_team)
+      Importers::Interface.import(data: players_blob.home_team_stats, processor: home_player_processor)
+      Importers::Interface.import(data: players_blob.away_team_stats, processor: away_player_processor)
+    end
+  end
 end

@@ -1,11 +1,15 @@
 module Fetchers
   class NrlMatchStats
-    attr :url, :raw_data, :json_data
+    attr :url, :raw_data, :json_data, :match
 
-    def initialize(year:, round:, home_team:, away_team:)
-      @url = build_url(year, round, home_team, away_team)
+    def initialize(match:)
+      @url = build_url(match)
+      @match = match
       get_data
+      return unless raw_data
       transform_data_to_json
+    rescue StandardError
+      return nil
     end
 
     def home_team_stats
@@ -24,6 +28,14 @@ module Fetchers
 
     def get_data
       @raw_data = RestClient.get(url).body
+    rescue StandardError => e
+      p "-----"
+      p match
+      match.destroy
+      p @url
+      p @url
+      p @url
+      p @url
     end
 
 
@@ -34,8 +46,8 @@ module Fetchers
       @json_data = JSON.parse(data)
     end
 
-    def build_url(year, round, home_team, away_team)
-      @url = "https://www.nrl.com/draw/nrl-premiership/#{year}/round-#{round}/#{home_team}-v-#{away_team}/"
+    def build_url(match)
+      @url = "https://www.nrl.com/draw/nrl-premiership/#{match.year}/round-#{match.round}/#{match.home_team.url_name}-v-#{match.away_team.url_name}/"
     end
   end
 end

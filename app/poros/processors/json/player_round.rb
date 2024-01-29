@@ -1,26 +1,23 @@
 module Processors
   module Json
     class PlayerRound
-      attr :team, :match, :json_blob, :attrs_block
+      attr :team, :match, :json_blob, :attrs_block, :player
       def initialize(team:, match:)
         @team = team
         @match = match
         @attrs_block = {}
       end
 
-      def create_player_round(player:, attrs:)
-        process_attrs(attrs)
-
-        ::PlayerRound.create!({
-          player: player,
-          team: team,
-          match: match,
-        }.merge(attrs_block))
+      def create
+        ::PlayerRound.create!({ player: player, team_id: team.id, match_id: match.id }.merge(attrs_block))
       end
 
-      private
+      def skip?
+        return true if player.blank?
+        ::PlayerRound.find_by(player: player, team: team, match: match).present?
+      end
 
-      def process_attrs(attrs)
+      def set_attrs(attrs:)
         attrs_block["all_run_meters"] = attrs["allRunMetres"]
         attrs_block["all_runs"] = attrs["allRuns"]
         attrs_block["bomb_kicks"] = attrs["bombKicks"]
@@ -78,6 +75,12 @@ module Processors
         attrs_block["try_assists"] = attrs["tryAssists"]
         attrs_block["twenty_forties"] = attrs["twentyFortyKicks"]
         attrs_block["two_point_field_goals"] = attrs["twoPointFieldGoals"]
+
+        find_player(attrs["playerId"])
+      end
+
+      def find_player(nrl_id)
+        @player = ::Player.find_by(nrl_id: nrl_id)
       end
     end
   end

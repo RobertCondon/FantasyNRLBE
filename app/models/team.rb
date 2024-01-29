@@ -15,6 +15,10 @@ class Team < ApplicationRecord
   has_many :player_rounds
   # has_many :won_matches, class_name: 'Match', foreign_key: :winner_id
 
+  def url_name
+    name.downcase.gsub(" ", "-")
+  end
+
   def matches
     Match.where(home_team_id: id)
          .or(Match.where(away_team_id: id))
