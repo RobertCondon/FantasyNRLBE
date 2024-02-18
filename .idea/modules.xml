@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/fantasy_api.iml" filepath="$PROJECT_DIR$/.idea/fantasy_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../fantasy_fe/.idea/fantasy_fe.iml" filepath="$PROJECT_DIR$/../fantasy_fe/.idea/fantasy_fe.iml" />
     </modules>
   </component>
 </project>
