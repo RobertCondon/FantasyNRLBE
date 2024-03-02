@@ -4,6 +4,7 @@
 #
 #  id                     :bigint           not null, primary key
 #  cost                   :integer
+#  current_position       :string
 #  fantasy_points_average :decimal(, )
 #  fantasy_points_total   :integer
 #  name                   :string
