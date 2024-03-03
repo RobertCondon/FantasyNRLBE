@@ -15,7 +15,7 @@ module Processors
       end
 
       def skip?
-        ::Match.find_by(score: attrs_block[:score], date: attrs_block[:date], winner_id: winner_team.id).present?
+        ::Match.find_by(score: attrs_block[:score], date: attrs_block[:date]).present?
       end
 
       def set_attrs(attrs:)
@@ -25,15 +25,16 @@ module Processors
         home_score = attrs['homeTeam']['score']
         away_score = attrs['awayTeam']['score']
         attrs_block[:score] = "#{home_score}-#{away_score}"
-
+        @away_team = find_team(attrs['awayTeam']['teamId'])
+        @home_team = find_team(attrs['homeTeam']['teamId'])
+        return if home_score.blank?
         if home_score > away_score
           @winner_team = find_team(attrs['homeTeam']['teamId'])
         else
           @winner_team = find_team(attrs['awayTeam']['teamId'])
         end
 
-        @away_team = find_team(attrs['awayTeam']['teamId'])
-        @home_team = find_team(attrs['homeTeam']['teamId'])
+
       end
 
       private

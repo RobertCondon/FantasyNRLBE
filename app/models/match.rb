@@ -20,22 +20,30 @@
 #  index_matches_on_year          (year)
 #
 class Match < ApplicationRecord
-  belongs_to :winner, class_name: 'Team', foreign_key: :winner_id
+  belongs_to :winner, class_name: 'Team', foreign_key: :winner_id, optional: true
   belongs_to :home_team, class_name: 'Team', foreign_key: :home_team_id
   belongs_to :away_team, class_name: 'Team', foreign_key: :away_team_id
 
+  def populate_current_player_positions_for_match
+    players_blob = Fetchers::Update::NrlMatchStats.new(match: self)
+    player_processor = Processors::Json::Update::FantasyPlayerCurrentPosition.new
+    return "no team list for match yet" if players_blob.home_team_stats.nil? || players_blob.away_team_stats.nil?
+
+    Importers::Interface.import(data: players_blob.home_team_stats, processor: player_processor)
+    Importers::Interface.import(data: players_blob.away_team_stats, processor: player_processor)
+  end
 
   private
 
   def self.populate_from_fantasy(round:, year:)
     years = [year].flatten
     rounds = [round].flatten
-    player_processor = Processors::Json::NrlMatch.new
+    match_processor = Processors::Json::NrlMatch.new
 
     years.each do |year|
       rounds.each do |round|
         players_blob = Fetchers::NrlMatches.json(round: round, year: year)
-        Importers::Interface.import(data: players_blob, processor: player_processor)
+        Importers::Interface.import(data: players_blob, processor: match_processor)
       end
     end
   end

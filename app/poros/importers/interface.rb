@@ -10,6 +10,8 @@ module Importers
         next if skip?
         process
       end
+      p "Total Skipped: #{@total_skipped}"
+      p "Total Processed: #{@total_processed}"
     end
 
     private
@@ -18,6 +20,8 @@ module Importers
     def initialize(data:, processor:)
       @data = data
       @processor = processor
+      @total_skipped = 0
+      @total_processed = 0
     end
 
     def set_attrs_on_processor_from(record)
@@ -25,10 +29,12 @@ module Importers
     end
 
     def process
+      @total_processed += 1
       processor.create
     end
 
     def skip?
+      @total_skipped += 1 if processor.skip?
       processor.skip?
     end
   end

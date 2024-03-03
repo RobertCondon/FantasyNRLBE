@@ -19,12 +19,15 @@ class Querier
         scope = scope.where(key => value[:from]..value[:to])
       elsif value.is_a?(Array)
         scope = scope.where(key => value)
+      elsif model.columns_hash[key].type == :integer
+        scope = scope.where(key => value.to_i)
       else
         scope = scope.where(arel_table[key].matches("%#{value}%"))
       end
     end
     scope
   end
+
 
   private
 
