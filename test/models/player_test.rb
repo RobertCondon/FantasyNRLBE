@@ -7,6 +7,7 @@
 #  current_position       :string
 #  fantasy_points_average :decimal(, )
 #  fantasy_points_total   :integer
+#  image_url              :string
 #  name                   :string
 #  owned_by               :decimal(, )
 #  position               :string

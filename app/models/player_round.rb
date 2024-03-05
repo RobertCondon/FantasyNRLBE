@@ -86,6 +86,10 @@ class PlayerRound < ApplicationRecord
   belongs_to :team
   belongs_to :match
 
+  scope :ordered_by_match_date_desc, -> {
+    joins(:match).order('matches.date DESC')
+  }
+
 
   def self.populate_from_fantasy(matches:)
     matches = [matches].flatten

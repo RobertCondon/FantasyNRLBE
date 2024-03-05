@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_02_225215) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_05_105201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_02_225215) do
     t.integer "nrl_id"
     t.string "status"
     t.string "current_position"
+    t.string "image_url"
   end
 
   create_table "teams", force: :cascade do |t|

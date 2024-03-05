@@ -3,8 +3,8 @@ module Api
     before_action :set_player_round, only: %i[show update destroy]
 
     def index
-      @player_rounds = Querier.call(params, PlayerRound)
-      render json: @player_rounds
+      @player_rounds = Querier.call(params, PlayerRound.includes(:match)).ordered_by_match_date_desc
+      render json: @player_rounds,  include: :match
     end
 
     def show

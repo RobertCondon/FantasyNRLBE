@@ -19,6 +19,7 @@ module Processors
         def set_attrs(attrs:)
           @player = Player.find_by(nrl_id: attrs['playerId'])
           attrs_block[:current_position] = attrs['position']
+          attrs_block[:image_url] = attrs["headImage"]&.split("/remote.axd?")[1]
         end
       end
     end
