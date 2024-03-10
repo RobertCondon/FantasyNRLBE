@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_05_105201) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_10_005235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_05_105201) do
     t.integer "offside_within_ten_meters"
     t.decimal "play_the_ball_average_speed"
     t.bigint "match_id"
+    t.integer "price"
     t.index ["match_id"], name: "index_player_rounds_on_match_id"
   end
 

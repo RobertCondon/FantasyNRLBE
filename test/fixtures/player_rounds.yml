@@ -53,6 +53,7 @@
 #  points                      :integer
 #  position                    :string
 #  post_contact_meters         :integer
+#  price                       :integer
 #  receipts                    :integer
 #  ruck_infringements          :integer
 #  send_offs                   :integer
