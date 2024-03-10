@@ -3,8 +3,8 @@ module Api
     before_action :set_player_round, only: %i[show update destroy]
 
     def index
-      @player_rounds = Querier.call(params, PlayerRound.includes(:match)).ordered_by_match_date_desc
-      render json: @player_rounds,  include: :match
+      @player_rounds = Querier.call(params, match_player_rounds).ordered_by_match_date_desc
+      render json: @player_rounds,  include: [:match, :player]
     end
 
     def show
@@ -34,6 +34,17 @@ module Api
     end
 
     private
+
+    def match_player_rounds
+      year = params[:year]
+      round = params[:round]
+      player_rounds = PlayerRound.includes(:match, :player)
+
+      player_rounds = player_rounds.where(matches: { year: year, round: round }) if year && round
+      player_rounds = player_rounds.where.not(minutes_played: nil) if params[:played]
+
+      return player_rounds.ordered_by_match_date_desc
+    end
 
     def set_player_round
       @player_round = PlayerRound.find(params[:id])
