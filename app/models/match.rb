@@ -31,6 +31,7 @@ class Match < ApplicationRecord
 
     Importers::Interface.import(data: players_blob.home_team_stats, processor: player_processor)
     Importers::Interface.import(data: players_blob.away_team_stats, processor: player_processor)
+    PlayerRoundsFromDb.populate_rounds(match: self)
   end
 
   private

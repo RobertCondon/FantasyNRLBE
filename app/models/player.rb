@@ -28,8 +28,8 @@ class Player < ApplicationRecord
   end
 
   def self.update_from_fantasy
-  players_blob = Fetchers::NrlFantasy.json("players")
-  player_processor = Processors::Json::Update::FantasyPlayer.new
-  Importers::Interface.import(data: players_blob, processor: player_processor)
+    players_blob = Fetchers::NrlFantasy.json("players")
+    player_processor = Processors::Json::Update::FantasyPlayer.new
+    Importers::Interface.import(data: players_blob, processor: player_processor)
   end
 end
