@@ -12,6 +12,7 @@
 #  owned_by               :decimal(, )
 #  position               :string
 #  price                  :integer
+#  price_change           :integer
 #  status                 :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
