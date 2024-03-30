@@ -13,15 +13,15 @@ module Fetchers
     end
 
     def home_team_stats
-      player_stats['homeTeam']
+      player_stats&.dig('homeTeam')
     end
 
     def away_team_stats
-      player_stats['awayTeam']
+      player_stats&.dig('awayTeam')
     end
 
     def player_stats
-      json_data['match']['stats']['players']
+      json_data&.dig('match', 'stats', 'players')
     end
 
     private

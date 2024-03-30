@@ -32,6 +32,7 @@ module Processors
         else
           @winner_team = find_team(attrs['awayTeam']['teamId'])
         end
+        @attrs_block[:winner_id] = @winner_team if @winner_team.present?
 
 
       end

@@ -14,11 +14,11 @@ module Fetchers
       end
 
       def home_team_stats
-        player_stats['homeTeam']['players']
+        player_stats&.dig('homeTeam', 'players')
       end
 
       def away_team_stats
-        player_stats['awayTeam']['players']
+        player_stats&.dig('awayTeam', 'players')
       end
 
       def player_stats

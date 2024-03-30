@@ -9,5 +9,10 @@ Rails.application.routes.draw do
     resources :players
     resources :player_rounds
     resources :matches
+    resources :backfill do
+      collection do
+        post 'create'
+      end
+    end
   end
 end

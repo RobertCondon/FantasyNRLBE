@@ -5,6 +5,7 @@ module Importers
     end
 
     def import
+      return p "No data to import" if data.nil?
       data.each do |record|
         set_attrs_on_processor_from record
         next if skip?
