@@ -24,7 +24,7 @@ class Match < ApplicationRecord
   belongs_to :home_team, class_name: 'Team', foreign_key: :home_team_id
   belongs_to :away_team, class_name: 'Team', foreign_key: :away_team_id
 
-  def self.populate_current_player_positions_for_match(matches: matches)
+  def self.populate_current_player_positions_for_match(matches:)
     matches.each do |match|
       players_blob = Fetchers::Update::NrlMatchStats.new(match: match)
       player_processor = Processors::Json::Update::FantasyPlayerCurrentPosition.new
