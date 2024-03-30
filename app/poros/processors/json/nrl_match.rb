@@ -10,7 +10,6 @@ module Processors
         ::Match.create!({
           away_team_id: away_team.id,
           home_team_id: home_team.id,
-          winner_id: winner_team.id,
         }.merge(attrs_block))
       end
 

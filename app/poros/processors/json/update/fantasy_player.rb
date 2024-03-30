@@ -20,11 +20,14 @@ module Processors
           stats = attrs['stats']
           set_team(attrs['squad_id'])
           @player = Player.find_by(nrl_id: attrs['id'])
+          return if @player.nil?
+          player_price_change = attrs['cost'] - @player.cost
 
           attrs_block[:name] = "#{attrs['first_name']} #{attrs['last_name']}"
           attrs_block[:position] = attrs['position']
           attrs_block[:nrl_id] = attrs['id']
           attrs_block[:cost] = attrs['cost']
+          attrs_block[:price_change] = player_price_change unless player_price_change.zero?
           attrs_block[:status] = attrs['status']
           attrs_block[:owned_by] = stats['owned_by']
           attrs_block[:position] = position_array_to_string(attrs['positions'])
