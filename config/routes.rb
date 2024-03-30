@@ -14,5 +14,13 @@ Rails.application.routes.draw do
         post 'create'
       end
     end
+
+    namespace :players do
+      resources :positions do
+        collection do
+          patch 'update'
+        end
+      end
+    end
   end
 end
