@@ -14,7 +14,7 @@ module Processors
 
       def skip?
         return true if player.blank?
-        ::PlayerRound.find_by(player: player, team: team, match: match).present?
+        ::PlayerRound.find_by(player: player, match: match).present?
       end
 
       def set_attrs(attrs:)

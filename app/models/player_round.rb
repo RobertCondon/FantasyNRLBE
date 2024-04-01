@@ -96,8 +96,8 @@ class PlayerRound < ApplicationRecord
     matches = [matches].flatten
 
     matches.each do |match|
-      next if PlayerRound.where(match: match).count > 0
       players_blob = Fetchers::NrlMatchStats.new(match: match)
+      p "no players blob for match #{match.id}" if players_blob.nil?
       next if players_blob.nil?
 
       home_player_processor = Processors::Json::PlayerRound.new(match: match, team: match.home_team)
