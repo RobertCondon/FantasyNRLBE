@@ -19,6 +19,7 @@ module Processors
 
       def set_attrs(attrs:)
         attrs_block["all_run_meters"] = attrs["allRunMetres"]
+        attrs_block["price"] = player&.cost
         attrs_block["all_runs"] = attrs["allRuns"]
         attrs_block["bomb_kicks"] = attrs["bombKicks"]
         attrs_block["cross_field_kicks"] = attrs["crossFieldKicks"]

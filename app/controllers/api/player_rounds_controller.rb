@@ -12,20 +12,15 @@ module Api
     end
 
     def create
-      @player_round = PlayerRound.new(player_round_params)
-      if @player_round.save
-        render json: @player_round, status: :created
-      else
-        render json: @player_round.errors, status: :unprocessable_entity
-      end
+      matches = Match.where(year: Time.now.year, round: params[:round])
+      created_matches = PlayerRound.populate_from_fantasy(matches: matches)
+      render json: { message: 'Creation of player rounds complete', created_matches: created_matches }
     end
 
     def update
-      if @player_round.update(player_round_params)
-        render json: @player_round
-      else
-        render json: @player_round.errors, status: :unprocessable_entity
-      end
+      matches = Match.where(year: Time.now.year, round: params[:round])
+      updated_matches = PlayerRound.update_from_fantasy(matches: matches)
+      render json: { message: 'Update of player rounds complete', updated_matches: updated_matches }
     end
 
     def destroy
