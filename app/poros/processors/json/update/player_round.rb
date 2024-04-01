@@ -20,6 +20,8 @@ module Processors
         end
 
         def set_attrs(attrs:)
+          find_player(attrs["playerId"])
+
           attrs_block["all_run_meters"] = attrs["allRunMetres"]
           attrs_block["price"] = player&.cost
           attrs_block["position"] = player&.current_position
@@ -80,7 +82,6 @@ module Processors
           attrs_block["twenty_forties"] = attrs["twentyFortyKicks"]
           attrs_block["two_point_field_goals"] = attrs["twoPointFieldGoals"]
 
-          find_player(attrs["playerId"])
         end
 
         def find_player(nrl_id)
