@@ -15,10 +15,16 @@ class BackfillDb
   end
 
   def matches
+    p "starting matches"
     rounds = (1..26).to_a
+    p rounds
+    p "@current_round: #{@current_round}"
     current_rounds = (1..@current_round).to_a
+    p current_rounds
     current_year = Time.now.year
+    p current_year
     years = (@from_year..(current_year - 1)).to_a
+    p years
     Match.populate_from_fantasy(round: rounds, year: years)
     Match.populate_from_fantasy(round: current_rounds, year: [current_year])
   end
