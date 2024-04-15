@@ -1,7 +1,7 @@
 class BackfillDb
   def initialize(from_year: 2019, current_round: 4)
-    @from_year = from_year
-    @current_round = current_round
+    @from_year = from_year.to_i
+    @current_round = current_round.to_i
   end
 
   def backfill
