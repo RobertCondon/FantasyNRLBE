@@ -18,7 +18,7 @@ class BackfillDb
     rounds = (1..26).to_a
     current_rounds = (1..@current_round).to_a
     current_year = Time.now.year
-    years = (@from_year..(current_year-1)).to_a
+    years = (@from_year..(current_year - 1)).to_a
     Match.populate_from_fantasy(round: rounds, year: years)
     Match.populate_from_fantasy(round: current_rounds, year: [current_year])
   end
