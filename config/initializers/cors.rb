@@ -7,11 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "*"
+    origins ->(source, env) { source.ends_with?('.vercel.app') }
 
-    resource "*",
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: true
+    resource '*',
+             headers: :any,
+             methods: [:get, :post, :patch, :delete, :options, :head],
+             credentials: true,
+             expose: ['Authorization']
   end
 end
