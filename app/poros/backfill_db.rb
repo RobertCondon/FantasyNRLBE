@@ -1,5 +1,5 @@
 class BackfillDb
-  def initialize(from_year = 2019, current_round = 4)
+  def initialize(from_year: 2019, current_round: 4)
     @from_year = from_year
     @current_round = current_round
   end
@@ -10,6 +10,8 @@ class BackfillDb
     matches
     PlayerRound.populate_from_fantasy(matches: Match.where(year: (@from_year..Time.now.year).to_a))
     PlayerRound.update_from_fantasy(matches: Match.where(year: Time.now.year, round: @current_round))
+    Match.populate_current_player_positions_for_match(matches: Match.where(year: Time.now.year, round: @current_round))
+    Player.populate_player_images(matches: Match.where(year: [Time.now.year -1, Time.now.year]))
   end
 
   def matches

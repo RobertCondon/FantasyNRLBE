@@ -33,4 +33,35 @@ class Player < ApplicationRecord
     player_processor = Processors::Json::Update::FantasyPlayer.new
     Importers::Interface.import(data: players_blob, processor: player_processor)
   end
+
+  def self.populate_player_images(matches:)
+    matches.each do |match|
+      players_blob = Fetchers::Update::NrlMatchStats.new(match: match)
+      player_processor = Processors::Json::Update::FantasyPlayerCurrentPosition.new(update_position: false)
+      return "no team list for match yet" if players_blob.home_team_stats.nil? || players_blob.away_team_stats.nil?
+
+      Importers::Interface.import(data: players_blob.home_team_stats, processor: player_processor)
+      Importers::Interface.import(data: players_blob.away_team_stats, processor: player_processor)
+    end
+  end
+
+  def self.position_from_fantasy(positions)
+    positions.map { |num| fantasy_pos_to_s(num) }.join(' | ')
+  end
+  def self.fantasy_pos_to_s(position)
+    case position.to_i
+    when 1
+      "HOK"
+    when 2
+      "MID"
+    when 3
+      "EDG"
+    when 4
+      "HLF"
+    when 5
+      "CTR"
+    when 6
+      'WFB'
+    end
+  end
 end

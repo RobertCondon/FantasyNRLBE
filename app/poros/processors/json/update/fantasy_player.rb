@@ -24,7 +24,7 @@ module Processors
           player_price_change = attrs['cost'] - @player.cost
 
           attrs_block[:name] = "#{attrs['first_name']} #{attrs['last_name']}"
-          attrs_block[:position] = attrs['position']
+          attrs_block[:current_position] = attrs['status'] unless attrs['status'].nil? || attrs['status'] == "playing"
           attrs_block[:nrl_id] = attrs['id']
           attrs_block[:cost] = attrs['cost']
           attrs_block[:price_change] = player_price_change unless player_price_change.zero?
@@ -47,7 +47,7 @@ module Processors
         end
 
         def position(num)
-          case num
+          case num.to_i
           when 1
             'HOK'
           when 2
