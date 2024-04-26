@@ -13,11 +13,21 @@ module Fetchers
     end
 
     def home_team_stats
-      player_stats&.dig('homeTeam')
+      return [] unless player_stats&.dig('homeTeam')
+
+      player_stats&.dig('homeTeam').map do |player|
+        base_player_attrs = home_team_players[player['playerId'].to_i] || {}
+        player.merge(base_player_attrs)
+      end
     end
 
     def away_team_stats
-      player_stats&.dig('awayTeam')
+      return [] unless player_stats&.dig('awayTeam')
+
+      player_stats&.dig('awayTeam').map do |player|
+        base_player_attrs = away_team_players[player['playerId'].to_i] || {}
+        player.merge(base_player_attrs)
+      end
     end
 
     def player_stats
@@ -29,13 +39,29 @@ module Fetchers
     def get_data
       @raw_data = RestClient.get(url).body
     rescue StandardError => e
-      p "-----"
-      p match
       match.destroy
-      p @url
-      p @url
-      p @url
-      p @url
+    end
+
+
+    def home_team_players
+      @home_team_players ||= home_team_player_blob.each_with_object({}) do |player, hash|
+        player_id = player.delete("playerId")
+        hash[player_id.to_i] = player
+      end
+    end
+
+    def away_team_players
+      @away_team_players ||= away_team_player_blob.each_with_object({}) do |player, hash|
+        player_id = player.delete("playerId")
+        hash[player_id] = player
+      end
+    end
+    def home_team_player_blob
+      json_data&.dig('match', 'homeTeam', 'players')
+    end
+
+    def away_team_player_blob
+      json_data&.dig('match', 'awayTeam', 'players')
     end
 
 

@@ -1,27 +1,34 @@
 module Processors
   module Json
     class PlayerRound
-      attr :team, :match, :json_blob, :attrs_block, :player
+      attr :team, :match, :json_blob, :attrs_block, :player, :player_attrs
       def initialize(team:, match:)
         @team = team
         @match = match
         @attrs_block = {}
+        @player_attrs = {}
       end
 
       def create
         ::PlayerRound.create!({ player: player, team_id: team.id, match_id: match.id }.merge(attrs_block))
+        player.update(image_url: player_attrs["image_url"]) unless player_attrs["image_url"].blank?
       end
 
       def skip?
         return true if player.blank?
-        ::PlayerRound.find_by(player: player, match: match).present?
+
+        ::PlayerRound.find_by(player: player, match: match)&.destroy
+
+        false
       end
 
       def set_attrs(attrs:)
         find_player(attrs["playerId"])
+        player_attrs["image_url"] = parsed_image_url(attrs["headImage"])
 
         attrs_block["all_run_meters"] = attrs["allRunMetres"]
         attrs_block["price"] = player&.cost
+        attrs_block["position"] = attrs["position"]
         attrs_block["all_runs"] = attrs["allRuns"]
         attrs_block["bomb_kicks"] = attrs["bombKicks"]
         attrs_block["cross_field_kicks"] = attrs["crossFieldKicks"]
@@ -78,6 +85,16 @@ module Processors
         attrs_block["try_assists"] = attrs["tryAssists"]
         attrs_block["twenty_forties"] = attrs["twentyFortyKicks"]
         attrs_block["two_point_field_goals"] = attrs["twoPointFieldGoals"]
+      end
+
+      def parsed_image_url(image_url)
+        return "https#{split_image_url(image_url, "https")}" unless split_image_url(image_url, "https").blank?
+        return "http#{split_image_url(image_url, "http")}" unless split_image_url(image_url, "http").blank?
+        image_url
+      end
+
+      def split_image_url(image_url, split_string)
+        image_url.split(split_string)&.second
       end
 
       def find_player(nrl_id)
