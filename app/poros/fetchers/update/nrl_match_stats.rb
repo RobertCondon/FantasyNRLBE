@@ -22,7 +22,7 @@ module Fetchers
       end
 
       def player_stats
-        json_data['match']
+        json_data&.dig('match')
       end
 
       private
@@ -30,13 +30,7 @@ module Fetchers
       def get_data
         @raw_data = RestClient.get(url).body
       rescue StandardError => e
-        p "-----"
-        p match
         match.destroy
-        p @url
-        p @url
-        p @url
-        p @url
       end
 
 

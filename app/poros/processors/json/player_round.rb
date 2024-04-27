@@ -12,6 +12,7 @@ module Processors
       def create
         ::PlayerRound.create!({ player: player, team_id: team.id, match_id: match.id }.merge(attrs_block))
         player.update(image_url: player_attrs["image_url"]) unless player_attrs["image_url"].blank?
+        @player_attrs = {}
       end
 
       def skip?
@@ -24,7 +25,7 @@ module Processors
 
       def set_attrs(attrs:)
         find_player(attrs["playerId"])
-        player_attrs["image_url"] = parsed_image_url(attrs["headImage"])
+        handle_image(attrs["headImage"])
 
         attrs_block["all_run_meters"] = attrs["allRunMetres"]
         attrs_block["price"] = player&.cost
@@ -87,6 +88,8 @@ module Processors
         attrs_block["two_point_field_goals"] = attrs["twoPointFieldGoals"]
       end
 
+      private
+
       def parsed_image_url(image_url)
         return "https#{split_image_url(image_url, "https")}" unless split_image_url(image_url, "https").blank?
         return "http#{split_image_url(image_url, "http")}" unless split_image_url(image_url, "http").blank?
@@ -95,6 +98,33 @@ module Processors
 
       def split_image_url(image_url, split_string)
         image_url.split(split_string)&.second
+      end
+
+      def handle_image(img_url)
+        img_url = parsed_image_url(img_url)
+        return if player.blank?
+        return if player.image_url&.present?
+        return if image_doesnt_exist(img_url)
+
+        player_attrs["image_url"] = img_url
+      end
+
+      def image_doesnt_exist(image_url)
+        RestClient.get(image_url).code == 404
+      rescue RestClient::Forbidden
+        true
+      rescue RestClient::NotFound
+        true
+      rescue RestClient::Unauthorized
+        true
+      rescue RestClient::BadRequest
+        true
+      rescue RestClient::Exceptions::OpenTimeout
+        true
+      rescue ArgumentError
+        true
+      rescue
+        true
       end
 
       def find_player(nrl_id)

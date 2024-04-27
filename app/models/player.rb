@@ -34,10 +34,10 @@ class Player < ApplicationRecord
     Importers::Interface.import(data: players_blob, processor: player_processor)
   end
 
-  def self.populate_player_images(matches:)
+  def self.populate_player_images(matches:, force_update_img:)
     matches.each do |match|
       players_blob = Fetchers::Update::NrlMatchStats.new(match: match)
-      player_processor = Processors::Json::Update::FantasyPlayerCurrentPosition.new(update_position: false)
+      player_processor = Processors::Json::Update::FantasyPlayerCurrentPosition.new(update_position: false, force_update_img: force_update_img)
       return "no team list for match yet" if players_blob.home_team_stats.nil? || players_blob.away_team_stats.nil?
 
       Importers::Interface.import(data: players_blob.home_team_stats, processor: player_processor)
